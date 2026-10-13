@@ -540,6 +540,45 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
 .pasos-bazar b{color:var(--ink);font-weight:600}
 .pasos-bazar[hidden]{display:none}
 
+
+/* ============ calculadora de talla ============ */
+.guia-velo{position:fixed;inset:0;z-index:80;background:rgba(18,16,16,.46);opacity:0;pointer-events:none;transition:opacity .25s ease}
+.guia-velo.abierto{opacity:1;pointer-events:auto}
+.guia{position:fixed;z-index:81;left:50%;top:50%;width:min(480px,calc(100% - 24px));max-height:calc(100% - 24px);overflow-y:auto;
+  transform:translate(-50%,-46%);opacity:0;visibility:hidden;background:var(--ground);box-shadow:0 30px 80px rgba(18,16,16,.3);
+  transition:opacity .25s ease,transform .3s cubic-bezier(.16,.84,.44,1),visibility 0s linear .3s}
+.guia.abierto{opacity:1;visibility:visible;transform:translate(-50%,-50%);transition:opacity .25s ease,transform .3s cubic-bezier(.16,.84,.44,1),visibility 0s}
+.guia-cab{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:22px 24px 16px;border-bottom:1px solid var(--hairline)}
+.guia-cab .kicker{margin-bottom:6px}
+.guia-cab h2{font-size:24px;font-stretch:112%}
+.guia-cuerpo{padding:20px 24px 24px;display:flex;flex-direction:column;gap:18px}
+.guia-cuerpo p{margin:0;color:var(--ink-soft);font-size:15px;line-height:1.55}
+.guia-campos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.guia-campos label{display:flex;flex-direction:column;gap:6px;font-family:"Archivo",sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+.guia-campos input{font:500 16px "Archivo",sans-serif;color:var(--ink);background:var(--surface);border:1px solid var(--line);
+  border-radius:1px;min-height:46px;padding:0 12px;width:100%;-moz-appearance:textfield}
+.guia-campos input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.guia-campos input::-webkit-outer-spin-button,.guia-campos input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.guia-campos .uni{font-weight:400;letter-spacing:.06em;text-transform:none}
+.guia .btn{width:100%}
+.guia-error{font-family:"Archivo",sans-serif;font-size:12.5px;color:var(--accent)}
+.guia-error:empty{display:none}
+.guia-res{border:1px solid var(--ink);padding:18px;display:flex;flex-direction:column;gap:12px}
+.guia-res[hidden]{display:none}
+.guia-res .talla-grande{display:flex;align-items:baseline;gap:14px}
+.guia-res .talla-grande span{font-family:"Archivo",sans-serif;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
+.guia-res .talla-grande b{font-family:"Archivo",sans-serif;font-weight:700;font-stretch:118%;font-size:46px;line-height:1;color:var(--accent)}
+.guia-tabla{width:100%;border-collapse:collapse;font-family:"Archivo",sans-serif;font-size:13px}
+.guia-tabla th{text-align:left;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);
+  padding:0 0 8px;border-bottom:1px solid var(--hairline)}
+.guia-tabla td{padding:9px 0;border-bottom:1px solid var(--line-soft);font-variant-numeric:tabular-nums}
+.guia-tabla tr.sel td{color:var(--accent);font-weight:600}
+.guia-nota{font-family:"Archivo",sans-serif;font-size:12px !important;color:var(--ink-faint) !important}
+.guia-wa{font-family:"Archivo",sans-serif;font-size:12.5px;color:var(--accent);text-underline-offset:3px;align-self:flex-start}
+@media(max-width:400px){.guia-campos{grid-template-columns:1fr 1fr}.guia-campos label:last-child{grid-column:span 2}}
+@media(prefers-reduced-motion:reduce){.guia,.guia-velo{transition:none}}
+
 /* ============ revelado ============ */
 .js-rise .rise{opacity:0;transform:translateY(22px);
   transition:opacity .85s cubic-bezier(.16,.84,.44,1),transform .85s cubic-bezier(.16,.84,.44,1)}
@@ -1138,6 +1177,31 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
 </aside>
 <div class="aviso-carrito" id="aviso-carrito" role="status" aria-live="polite"><span id="aviso-carrito-txt"></span><button type="button" data-abrir-carrito>Ver carrito</button></div>
 
+<div class="guia-velo" data-cerrar-guia></div>
+<div class="guia" id="guia" role="dialog" aria-modal="true" aria-labelledby="guia-tit" aria-hidden="true">
+  <div class="guia-cab">
+    <div><p class="kicker">Encuentra tu talla</p><h2 id="guia-tit">Prenda</h2></div>
+    <button type="button" class="cerrar" data-cerrar-guia aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <form class="guia-cuerpo" id="guia-form" novalidate>
+    <p>Pon tus datos y te decimos qué talla te queda.</p>
+    <div class="guia-campos">
+      <label><span>Estatura <span class="uni">(cm)</span></span><input id="g-alt" type="number" inputmode="numeric" min="140" max="210" placeholder="175" required></label>
+      <label><span>Peso <span class="uni">(kg)</span></span><input id="g-peso" type="number" inputmode="numeric" min="40" max="160" placeholder="72" required></label>
+      <label><span>Edad <span class="uni">(opcional)</span></span><input id="g-edad" type="number" inputmode="numeric" min="12" max="90" placeholder="28"></label>
+    </div>
+    <p class="guia-error" id="guia-error" aria-live="polite"></p>
+    <button type="submit" class="btn"><span class="txt">Calcular mi talla</span></button>
+    <div class="guia-res" id="guia-res" hidden aria-live="polite">
+      <div class="talla-grande"><span>Tu talla</span><b id="guia-talla">M</b></div>
+      <p id="guia-expl"></p>
+      <button type="button" class="btn" id="guia-elegir"><span class="txt">Elegir esta talla</span></button>
+    </div>
+    <table class="guia-tabla"><thead><tr><th>Talla</th><th>Pecho (cm)</th></tr></thead><tbody id="guia-filas"></tbody></table>
+    <p class="guia-nota">El pecho se mide por debajo de las axilas, alrededor de la parte más ancha. Si sabes tu medida, compárala directo con la tabla.</p>
+    <a class="guia-wa" id="guia-wa" href="#" target="_blank" rel="noopener">¿Sigues con duda? Pregúntanos por WhatsApp</a>
+  </form>
+</div>
 <div class="movil-cta">
   <button type="button" class="btn" data-movil-carrito data-abrir-carrito hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Ver pedido</span></button>
   <a class="btn" data-movil-wa href="https://wa.me/525560067266?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20La%20Pertcha%20y%20quiero%20preguntar%20por%20una%20prenda." target="_blank" rel="noopener">
@@ -1415,6 +1479,104 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
   pintar();
 })();
 </script>
+<script>
+/* Calculadora de talla: estima el pecho con estatura, peso y edad, y lo cruza con la tabla de la prenda. */
+(function(){
+  var TABLAS = {"Chamarra Bomber Gamuza Beige": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Chamarra Híbrida Gris Sport": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Chamarra Híbrida Gris Humo": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Sudadera Negra de Pana con Capucha": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Polo de Punto Texturizado": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}};
+  var guia = document.getElementById('guia'), velo = document.querySelector('.guia-velo');
+  var form = document.getElementById('guia-form'), res = document.getElementById('guia-res');
+  var alt = document.getElementById('g-alt'), peso = document.getElementById('g-peso'), edad = document.getElementById('g-edad');
+  var art = null, tabla = null, sugerida = null, foco = null;
+  try { var g = JSON.parse(localStorage.getItem('pertcha-medidas')) || {}; alt.value = g.a || ''; peso.value = g.p || ''; edad.value = g.e || ''; } catch(e) {}
+
+  function pecho(a, p, e){
+    /* relación estadística estatura-peso-pecho en hombres adultos */
+    var c = 106.9 + 0.62 * (p - 85.5) - 0.25 * (a - 175.6);
+    if(e) c += Math.max(-1.5, Math.min(2.5, 0.06 * (e - 30)));
+    return c;
+  }
+  function elegirTalla(c, alto){
+    var orden = Object.keys(tabla), mejor = null, dist = 1e9;
+    orden.forEach(function(t){
+      var r = tabla[t], d = c < r[0] ? r[0] - c : c > r[1] ? c - r[1] : 0;
+      if(d < dist || (d === dist && d > 0)){ dist = d; mejor = t; }
+    });
+    /* entre dos tallas: la grande, porque es prenda que va encima de otra */
+    for(var k = 0; k < orden.length - 1; k++){
+      if(c > tabla[orden[k]][1] && c < tabla[orden[k+1]][0]){ mejor = orden[k+1]; dist = 0; }
+    }
+    var i = orden.indexOf(mejor), r = tabla[mejor], vecina = null, porAltura = false;
+    /* muy alto: que no le queden cortas las mangas */
+    var minimo = alto >= 192 ? 2 : alto >= 186 ? 1 : 0;
+    if(i < minimo && minimo < orden.length){ i = minimo; mejor = orden[i]; r = tabla[mejor]; porAltura = true; }
+    if(c > r[1] - 1 && i < orden.length - 1) vecina = orden[i + 1];
+    else if(c < r[0] + 1 && i > 0) vecina = orden[i - 1];
+    if(porAltura) vecina = null;
+    return { talla: mejor, vecina: vecina, fuera: dist > 4 && !porAltura, porAltura: porAltura };
+  }
+  function filas(sel){
+    var tb = document.getElementById('guia-filas'); tb.innerHTML = '';
+    Object.keys(tabla).forEach(function(t){
+      var tr = document.createElement('tr'); if(t === sel) tr.className = 'sel';
+      var a = document.createElement('td'); a.textContent = t;
+      var b = document.createElement('td'); b.textContent = tabla[t][0] + ' – ' + tabla[t][1];
+      tr.append(a, b); tb.appendChild(tr);
+    });
+  }
+  function abrir(a, nombre){
+    art = a; tabla = TABLAS[nombre]; foco = document.activeElement;
+    document.getElementById('guia-tit').textContent = nombre;
+    document.getElementById('guia-error').textContent = '';
+    document.getElementById('guia-wa').href = 'https://wa.me/525560067266?text=' + encodeURIComponent('Hola, no sé qué talla soy en la ' + nombre + '. ¿Me ayudas?');
+    res.hidden = true; filas(null);
+    guia.classList.add('abierto'); velo.classList.add('abierto'); guia.setAttribute('aria-hidden','false');
+    document.documentElement.style.overflow = 'hidden';
+    setTimeout(function(){ (alt.value ? form.querySelector('button[type=submit]') : alt).focus(); }, 60);
+  }
+  function cerrar(){
+    guia.classList.remove('abierto'); velo.classList.remove('abierto'); guia.setAttribute('aria-hidden','true');
+    document.documentElement.style.overflow = '';
+    if(foco && foco.focus) foco.focus();
+  }
+  document.querySelectorAll('[data-cerrar-guia]').forEach(function(b){ b.addEventListener('click', cerrar); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && guia.classList.contains('abierto')) cerrar(); });
+
+  document.querySelectorAll('.pieza').forEach(function(a){
+    var nombre = a.querySelector('h3').textContent.trim();
+    var link = a.querySelector('.ayuda-talla');
+    if(!link || !TABLAS[nombre]) return;
+    link.addEventListener('click', function(e){ e.preventDefault(); abrir(a, nombre); });
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var A = parseFloat(alt.value), P = parseFloat(peso.value), E = parseFloat(edad.value) || 0;
+    var err = document.getElementById('guia-error');
+    if(!(A >= 140 && A <= 210) || !(P >= 40 && P <= 160)){
+      err.textContent = 'Pon tu estatura en centímetros (por ejemplo 175) y tu peso en kilos (por ejemplo 72).';
+      res.hidden = true; return;
+    }
+    err.textContent = '';
+    try { localStorage.setItem('pertcha-medidas', JSON.stringify({a:A, p:P, e:E || ''})); } catch(x) {}
+    var c = pecho(A, P, E), r = elegirTalla(c, A); sugerida = r.talla;
+    document.getElementById('guia-talla').textContent = r.talla;
+    var t = 'Tu pecho debe medir alrededor de ' + Math.round(c) + ' cm, y la ' + r.talla + ' es para ' + tabla[r.talla][0] + ' a ' + tabla[r.talla][1] + ' cm.';
+    if(r.porAltura) t = 'Por tu estatura te conviene la ' + r.talla + ', para que las mangas y el largo te queden bien.';
+    else if(r.fuera) t += ' Estás en la orilla de nuestras tallas: mejor pregúntanos por WhatsApp antes de pedir.';
+    else if(r.vecina) t += ' Estás cerca de la ' + r.vecina + ': si te gusta ' + (Object.keys(tabla).indexOf(r.vecina) > Object.keys(tabla).indexOf(r.talla) ? 'más holgada o la usas con suéter abajo, elige la ' : 'más ajustada, elige la ') + r.vecina + '.';
+    document.getElementById('guia-expl').textContent = t;
+    filas(r.talla); res.hidden = false;
+  });
+
+  document.getElementById('guia-elegir').addEventListener('click', function(){
+    if(!art || !sugerida) return;
+    var b = Array.prototype.filter.call(art.querySelectorAll('button.talla'), function(x){ return x.textContent.trim() === sugerida; })[0];
+    if(b) b.click();
+    cerrar();
+  });
+})();
+</script>
+
 
 
 </body></html>
