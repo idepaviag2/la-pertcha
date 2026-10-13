@@ -541,6 +541,7 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
 .pasos-bazar[hidden]{display:none}
 
 
+
 /* ============ calculadora de talla ============ */
 .guia-velo{position:fixed;inset:0;z-index:80;background:rgba(18,16,16,.46);opacity:0;pointer-events:none;transition:opacity .25s ease}
 .guia-velo.abierto{opacity:1;pointer-events:auto}
@@ -1202,6 +1203,31 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
     <a class="guia-wa" id="guia-wa" href="#" target="_blank" rel="noopener">¿Sigues con duda? Pregúntanos por WhatsApp</a>
   </form>
 </div>
+<div class="guia-velo" data-cerrar-guia></div>
+<div class="guia" id="guia" role="dialog" aria-modal="true" aria-labelledby="guia-tit" aria-hidden="true">
+  <div class="guia-cab">
+    <div><p class="kicker">Encuentra tu talla</p><h2 id="guia-tit">Prenda</h2></div>
+    <button type="button" class="cerrar" data-cerrar-guia aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <form class="guia-cuerpo" id="guia-form" novalidate>
+    <p>Pon tus datos y te decimos qué talla te queda.</p>
+    <div class="guia-campos">
+      <label><span>Estatura <span class="uni">(cm)</span></span><input id="g-alt" type="number" inputmode="numeric" min="140" max="210" placeholder="175" required></label>
+      <label><span>Peso <span class="uni">(kg)</span></span><input id="g-peso" type="number" inputmode="numeric" min="40" max="160" placeholder="72" required></label>
+      <label><span>Edad <span class="uni">(opcional)</span></span><input id="g-edad" type="number" inputmode="numeric" min="12" max="90" placeholder="28"></label>
+    </div>
+    <p class="guia-error" id="guia-error" aria-live="polite"></p>
+    <button type="submit" class="btn"><span class="txt">Calcular mi talla</span></button>
+    <div class="guia-res" id="guia-res" hidden aria-live="polite">
+      <div class="talla-grande"><span>Tu talla</span><b id="guia-talla">M</b></div>
+      <p id="guia-expl"></p>
+      <button type="button" class="btn" id="guia-elegir"><span class="txt">Elegir esta talla</span></button>
+    </div>
+    <table class="guia-tabla"><thead><tr><th>Talla</th><th>Pecho (cm)</th></tr></thead><tbody id="guia-filas"></tbody></table>
+    <p class="guia-nota">El pecho se mide por debajo de las axilas, alrededor de la parte más ancha. Si sabes tu medida, compárala directo con la tabla.</p>
+    <a class="guia-wa" id="guia-wa" href="#" target="_blank" rel="noopener">¿Sigues con duda? Pregúntanos por WhatsApp</a>
+  </form>
+</div>
 <div class="movil-cta">
   <button type="button" class="btn" data-movil-carrito data-abrir-carrito hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Ver pedido</span></button>
   <a class="btn" data-movil-wa href="https://wa.me/525560067266?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20La%20Pertcha%20y%20quiero%20preguntar%20por%20una%20prenda." target="_blank" rel="noopener">
@@ -1482,7 +1508,7 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
 <script>
 /* Calculadora de talla: estima el pecho con estatura, peso y edad, y lo cruza con la tabla de la prenda. */
 (function(){
-  var TABLAS = {"Chamarra Bomber Gamuza Beige": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Chamarra Híbrida Gris Sport": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Chamarra Híbrida Gris Humo": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Sudadera Negra de Pana con Capucha": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Polo de Punto Texturizado": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}};
+  var TABLAS = {"Chamarra Bomber Gamuza Beige": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Chamarra Híbrida Gris Sport": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Chamarra Híbrida Gris Humo": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Sudadera Negra de Pana con Capucha": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Polo de Punto Texturizado": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Sudadera Texturizada": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}};
   var guia = document.getElementById('guia'), velo = document.querySelector('.guia-velo');
   var form = document.getElementById('guia-form'), res = document.getElementById('guia-res');
   var alt = document.getElementById('g-alt'), peso = document.getElementById('g-peso'), edad = document.getElementById('g-edad');
@@ -1576,6 +1602,7 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
   });
 })();
 </script>
+
 
 
 
