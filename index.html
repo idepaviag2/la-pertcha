@@ -424,6 +424,84 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
 }
 .saltar:focus{left:8px;top:8px}
 
+
+/* ============ carrito ============ */
+button.talla{appearance:none;background:transparent;cursor:pointer;font:inherit;font-size:12px;font-weight:500;
+  transition:border-color .2s ease,color .2s ease,background .2s ease}
+button.talla:hover{color:var(--ink);border-color:var(--ink-faint)}
+button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--accent-ink)}
+.aviso-pieza{font-family:"Archivo",sans-serif;font-size:12.5px;color:var(--accent);margin:0;min-height:0}
+.aviso-pieza:empty{display:none}
+.grupo.falta .grupo-tit{color:var(--accent)}
+
+.bolsa{position:relative;display:inline-flex;align-items:center;justify-content:center;
+  width:46px;height:46px;border:1px solid var(--hairline);border-radius:1px;background:transparent;
+  color:var(--ink);cursor:pointer;transition:border-color .2s ease}
+.bolsa:hover{border-color:var(--ink)}
+.bolsa svg{width:20px;height:20px}
+.bolsa .cuenta{position:absolute;top:-7px;right:-7px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;
+  background:var(--accent);color:var(--accent-ink);font-family:"Archivo",sans-serif;font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.bolsa .cuenta[hidden]{display:none}
+.bolsa.salta{animation:salta .45s cubic-bezier(.16,.84,.44,1)}
+@keyframes salta{0%{transform:scale(1)}40%{transform:scale(1.14)}100%{transform:scale(1)}}
+
+.carrito-velo{position:fixed;inset:0;z-index:70;background:rgba(18,16,16,.42);opacity:0;pointer-events:none;
+  transition:opacity .3s ease}
+.carrito-velo.abierto{opacity:1;pointer-events:auto}
+.carrito{position:fixed;top:0;right:0;bottom:0;z-index:71;width:min(440px,100%);background:var(--ground);
+  display:flex;flex-direction:column;transform:translateX(100%);visibility:hidden;
+  transition:transform .38s cubic-bezier(.16,.84,.44,1),visibility 0s linear .38s;
+  box-shadow:-20px 0 60px rgba(18,16,16,.18)}
+.carrito.abierto{transform:none;visibility:visible;transition:transform .38s cubic-bezier(.16,.84,.44,1),visibility 0s}
+.carrito-cab{display:flex;align-items:center;justify-content:space-between;
+  padding:calc(18px + env(safe-area-inset-top,0px)) 24px 18px;border-bottom:1px solid var(--hairline)}
+.carrito-cab h2{font-size:22px;font-stretch:112%;letter-spacing:-.01em}
+.cerrar{appearance:none;background:none;border:0;cursor:pointer;width:44px;height:44px;margin-right:-10px;
+  display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.cerrar svg{width:22px;height:22px}
+.carrito-lista{flex:1;overflow-y:auto;padding:8px 24px;margin:0;list-style:none}
+.renglon{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:start;
+  padding:18px 0;border-bottom:1px solid var(--line-soft)}
+.renglon img{width:64px;height:80px;object-fit:cover;background:var(--raised);border-radius:1px}
+.renglon h3{font-family:"Archivo",sans-serif;font-size:14.5px;font-weight:600;margin:0 0 4px;line-height:1.25}
+.renglon .det{font-family:"Archivo",sans-serif;font-size:12px;color:var(--ink-faint);letter-spacing:.04em;margin:0}
+.renglon .cant{display:inline-flex;align-items:center;margin-top:12px;border:1px solid var(--line)}
+.renglon .cant button{appearance:none;background:none;border:0;width:36px;height:34px;cursor:pointer;
+  font-size:16px;color:var(--ink);font-family:"Archivo",sans-serif}
+.renglon .cant span{min-width:24px;text-align:center;font-family:"Archivo",sans-serif;font-size:13px;
+  font-variant-numeric:tabular-nums}
+.renglon .der{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.renglon .monto{font-family:"Archivo",sans-serif;font-weight:600;font-size:14px;font-variant-numeric:tabular-nums}
+.renglon .quitar{appearance:none;background:none;border:0;padding:6px 0;cursor:pointer;font-family:"Archivo",sans-serif;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);text-decoration:underline;
+  text-underline-offset:3px}
+.renglon .quitar:hover{color:var(--accent)}
+.carrito-vacio{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  padding:40px 24px;text-align:center;color:var(--ink-soft)}
+.carrito-vacio p{margin:0;max-width:26ch}
+.carrito-pie{border-top:1px solid var(--hairline);padding:18px 24px calc(20px + env(safe-area-inset-bottom,0px));
+  display:flex;flex-direction:column;gap:12px;background:var(--surface)}
+.carrito-total{display:flex;justify-content:space-between;align-items:baseline;font-family:"Archivo",sans-serif}
+.carrito-total span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);font-weight:600}
+.carrito-total b{font-size:22px;font-variant-numeric:tabular-nums}
+.carrito-pie .btn{width:100%}
+.carrito-pie small{font-family:"Archivo",sans-serif;font-size:11.5px;color:var(--ink-faint);text-align:center;line-height:1.5}
+
+.aviso-carrito{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));z-index:65;
+  transform:translate(-50%,20px);opacity:0;pointer-events:none;
+  display:flex;align-items:center;gap:16px;padding:12px 12px 12px 18px;background:var(--ink);color:var(--ground);
+  font-family:"Archivo",sans-serif;font-size:13px;box-shadow:0 12px 40px rgba(18,16,16,.3);
+  transition:opacity .3s ease,transform .3s cubic-bezier(.16,.84,.44,1);width:calc(100% - 28px);max-width:440px;justify-content:space-between}
+.aviso-carrito.visible{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.aviso-carrito button{appearance:none;border:1px solid rgba(255,255,255,.4);background:none;color:inherit;cursor:pointer;
+  font-family:"Archivo",sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  padding:10px 12px;white-space:nowrap}
+@media(min-width:760px){.aviso-carrito{bottom:32px}}
+.movil-cta .btn[hidden],.carrito-vacio[hidden],.carrito-lista[hidden],.carrito-pie[hidden]{display:none}
+@media(max-width:479px){.bar-links .btn .txt{display:none}.bar-links .btn{padding:0 14px}}
+@media(prefers-reduced-motion:reduce){.carrito,.carrito-velo,.aviso-carrito{transition:none}.bolsa.salta{animation:none}}
+
 /* ============ revelado ============ */
 .js-rise .rise{opacity:0;transform:translateY(22px);
   transition:opacity .85s cubic-bezier(.16,.84,.44,1),transform .85s cubic-bezier(.16,.84,.44,1)}
@@ -448,6 +526,7 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
     <a class="nav" href="#linea">La línea</a>
     <a class="nav" href="#detalle">El detalle</a>
     <a class="nav" href="#comprar">Cómo pedir</a>
+    <button type="button" class="bolsa" data-abrir-carrito aria-label="Carrito vacío"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="cuenta" hidden>0</span></button>
     <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20La%20Pertcha%20y%20quiero%20preguntar%20por%20una%20prenda." target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">WhatsApp</span></a>
   </nav>
@@ -527,10 +606,12 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
             </div>
           <div class="grupo">
             <span class="grupo-tit">Talla</span>
-            <div class="tallas"><span class="talla">28</span><span class="talla">30</span><span class="talla">32</span><span class="talla">34</span><span class="talla">36</span><span class="talla">38</span><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20el%20Pantal%C3%B3n%20Pertcha.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
+            <div class="tallas"><button type="button" class="talla" aria-pressed="false">28</button><button type="button" class="talla" aria-pressed="false">30</button><button type="button" class="talla" aria-pressed="false">32</button><button type="button" class="talla" aria-pressed="false">34</button><button type="button" class="talla" aria-pressed="false">36</button><button type="button" class="talla" aria-pressed="false">38</button><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20el%20Pantal%C3%B3n%20Pertcha.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
           </div>
+          <p class="aviso-pieza" aria-live="polite"></p>
           <div class="pieza-cta">
-            <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20el%20Pantal%C3%B3n%20Pertcha%20de%20%241%2C200.%20%C2%BFQu%C3%A9%20colores%20y%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
+            <button type="button" class="btn" data-agregar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Agregar al carrito</span></button>
+            <a class="btn btn-ghost" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20el%20Pantal%C3%B3n%20Pertcha%20de%20%241%2C200.%20%C2%BFQu%C3%A9%20colores%20y%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
             <span class="responde"><span class="pulso"></span>Contestamos el mismo día</span>
           </div>
         </div>
@@ -555,10 +636,12 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
             </div>
           <div class="grupo">
             <span class="grupo-tit">Talla</span>
-            <div class="tallas"><span class="talla">28</span><span class="talla">30</span><span class="talla">32</span><span class="talla">34</span><span class="talla">36</span><span class="talla">38</span><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20el%20Jogger%20gris.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
+            <div class="tallas"><button type="button" class="talla" aria-pressed="false">28</button><button type="button" class="talla" aria-pressed="false">30</button><button type="button" class="talla" aria-pressed="false">32</button><button type="button" class="talla" aria-pressed="false">34</button><button type="button" class="talla" aria-pressed="false">36</button><button type="button" class="talla" aria-pressed="false">38</button><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20el%20Jogger%20gris.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
           </div>
+          <p class="aviso-pieza" aria-live="polite"></p>
           <div class="pieza-cta">
-            <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20el%20Jogger%20gris%20de%20%24880.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
+            <button type="button" class="btn" data-agregar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Agregar al carrito</span></button>
+            <a class="btn btn-ghost" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20el%20Jogger%20gris%20de%20%24880.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
             <span class="responde"><span class="pulso"></span>Contestamos el mismo día</span>
           </div>
         </div>
@@ -597,10 +680,12 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
             </div>
           <div class="grupo">
             <span class="grupo-tit">Talla</span>
-            <div class="tallas"><span class="talla">CH</span><span class="talla">M</span><span class="talla">G</span><span class="talla">XG</span><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20el%20Short%20de%20lino.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
+            <div class="tallas"><button type="button" class="talla" aria-pressed="false">CH</button><button type="button" class="talla" aria-pressed="false">M</button><button type="button" class="talla" aria-pressed="false">G</button><button type="button" class="talla" aria-pressed="false">XG</button><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20el%20Short%20de%20lino.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
           </div>
+          <p class="aviso-pieza" aria-live="polite"></p>
           <div class="pieza-cta">
-            <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20el%20Short%20de%20lino%20de%20%24750.%20%C2%BFQu%C3%A9%20colores%20y%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
+            <button type="button" class="btn" data-agregar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Agregar al carrito</span></button>
+            <a class="btn btn-ghost" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20el%20Short%20de%20lino%20de%20%24750.%20%C2%BFQu%C3%A9%20colores%20y%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
             <span class="responde"><span class="pulso"></span>Contestamos el mismo día</span>
           </div>
         </div>
@@ -636,10 +721,12 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
             </div>
           <div class="grupo">
             <span class="grupo-tit">Talla</span>
-            <div class="tallas"><span class="talla">CH</span><span class="talla">M</span><span class="talla">G</span><span class="talla">XG</span><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20el%20Traje%20de%20ba%C3%B1o.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
+            <div class="tallas"><button type="button" class="talla" aria-pressed="false">CH</button><button type="button" class="talla" aria-pressed="false">M</button><button type="button" class="talla" aria-pressed="false">G</button><button type="button" class="talla" aria-pressed="false">XG</button><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20el%20Traje%20de%20ba%C3%B1o.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
           </div>
+          <p class="aviso-pieza" aria-live="polite"></p>
           <div class="pieza-cta">
-            <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20un%20Traje%20de%20ba%C3%B1o%20de%20%24700.%20%C2%BFTienes%20Bali%2C%20Saint-Tropez%20o%20Mykonos%20en%20mi%20talla%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
+            <button type="button" class="btn" data-agregar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Agregar al carrito</span></button>
+            <a class="btn btn-ghost" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20un%20Traje%20de%20ba%C3%B1o%20de%20%24700.%20%C2%BFTienes%20Bali%2C%20Saint-Tropez%20o%20Mykonos%20en%20mi%20talla%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
             <span class="responde"><span class="pulso"></span>Contestamos el mismo día</span>
           </div>
         </div>
@@ -666,8 +753,14 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
                 <span class="color"><span class="punto" style="background:#B4A695"></span>Beige</span>
               </div>
             </div>
+          <div class="grupo">
+            <span class="grupo-tit">Talla</span>
+            <div class="tallas"><button type="button" class="talla" aria-pressed="false">ECH</button><button type="button" class="talla" aria-pressed="false">CH</button><button type="button" class="talla" aria-pressed="false">M</button><button type="button" class="talla" aria-pressed="false">G</button><button type="button" class="talla" aria-pressed="false">EG</button><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20la%20Chamarra%20Bomber%20Gamuza%20Beige.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
+          </div>
+          <p class="aviso-pieza" aria-live="polite"></p>
           <div class="pieza-cta">
-            <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Chamarra%20Bomber%20Gamuza%20Beige%20de%20%241%2C300.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
+            <button type="button" class="btn" data-agregar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Agregar al carrito</span></button>
+            <a class="btn btn-ghost" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Chamarra%20Bomber%20Gamuza%20Beige%20de%20%241%2C300.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
             <span class="responde"><span class="pulso"></span>Contestamos el mismo día</span>
           </div>
         </div>
@@ -690,8 +783,14 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
                 <span class="color"><span class="punto" style="background:#B2B2B4"></span>Gris</span>
               </div>
             </div>
+          <div class="grupo">
+            <span class="grupo-tit">Talla</span>
+            <div class="tallas"><button type="button" class="talla" aria-pressed="false">ECH</button><button type="button" class="talla" aria-pressed="false">CH</button><button type="button" class="talla" aria-pressed="false">M</button><button type="button" class="talla" aria-pressed="false">G</button><button type="button" class="talla" aria-pressed="false">EG</button><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20la%20Chamarra%20H%C3%ADbrida%20Gris%20Sport.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
+          </div>
+          <p class="aviso-pieza" aria-live="polite"></p>
           <div class="pieza-cta">
-            <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Chamarra%20H%C3%ADbrida%20Gris%20Sport%20de%20%241%2C000.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
+            <button type="button" class="btn" data-agregar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Agregar al carrito</span></button>
+            <a class="btn btn-ghost" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Chamarra%20H%C3%ADbrida%20Gris%20Sport%20de%20%241%2C000.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
             <span class="responde"><span class="pulso"></span>Contestamos el mismo día</span>
           </div>
         </div>
@@ -716,8 +815,14 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
                 <span class="color"><span class="punto" style="background:#494641"></span>Gris humo</span>
               </div>
             </div>
+          <div class="grupo">
+            <span class="grupo-tit">Talla</span>
+            <div class="tallas"><button type="button" class="talla" aria-pressed="false">ECH</button><button type="button" class="talla" aria-pressed="false">CH</button><button type="button" class="talla" aria-pressed="false">M</button><button type="button" class="talla" aria-pressed="false">G</button><button type="button" class="talla" aria-pressed="false">EG</button><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20la%20Chamarra%20H%C3%ADbrida%20Gris%20Humo.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
+          </div>
+          <p class="aviso-pieza" aria-live="polite"></p>
           <div class="pieza-cta">
-            <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Chamarra%20H%C3%ADbrida%20Gris%20Humo%20de%20%241%2C400.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
+            <button type="button" class="btn" data-agregar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Agregar al carrito</span></button>
+            <a class="btn btn-ghost" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Chamarra%20H%C3%ADbrida%20Gris%20Humo%20de%20%241%2C400.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
             <span class="responde"><span class="pulso"></span>Contestamos el mismo día</span>
           </div>
         </div>
@@ -740,8 +845,14 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
                 <span class="color"><span class="punto" style="background:#635443"></span>Café</span>
               </div>
             </div>
+          <div class="grupo">
+            <span class="grupo-tit">Talla</span>
+            <div class="tallas"><button type="button" class="talla" aria-pressed="false">ECH</button><button type="button" class="talla" aria-pressed="false">CH</button><button type="button" class="talla" aria-pressed="false">M</button><button type="button" class="talla" aria-pressed="false">G</button><button type="button" class="talla" aria-pressed="false">EG</button><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20la%20Chamarra%20Gamuza%20Caf%C3%A9.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
+          </div>
+          <p class="aviso-pieza" aria-live="polite"></p>
           <div class="pieza-cta">
-            <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Chamarra%20Gamuza%20Caf%C3%A9%20de%20%241%2C300.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
+            <button type="button" class="btn" data-agregar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Agregar al carrito</span></button>
+            <a class="btn btn-ghost" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Chamarra%20Gamuza%20Caf%C3%A9%20de%20%241%2C300.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
             <span class="responde"><span class="pulso"></span>Contestamos el mismo día</span>
           </div>
         </div>
@@ -766,8 +877,14 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
                 <span class="color"><span class="punto" style="background:#B8B5B0"></span>Gris perla</span>
               </div>
             </div>
+          <div class="grupo">
+            <span class="grupo-tit">Talla</span>
+            <div class="tallas"><button type="button" class="talla" aria-pressed="false">ECH</button><button type="button" class="talla" aria-pressed="false">CH</button><button type="button" class="talla" aria-pressed="false">M</button><button type="button" class="talla" aria-pressed="false">G</button><button type="button" class="talla" aria-pressed="false">EG</button><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20la%20Sudadera%20Texturizada.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
+          </div>
+          <p class="aviso-pieza" aria-live="polite"></p>
           <div class="pieza-cta">
-            <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Sudadera%20Texturizada%20de%20%24900.%20%C2%BFQu%C3%A9%20colores%20y%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
+            <button type="button" class="btn" data-agregar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Agregar al carrito</span></button>
+            <a class="btn btn-ghost" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Sudadera%20Texturizada%20de%20%24900.%20%C2%BFQu%C3%A9%20colores%20y%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
             <span class="responde"><span class="pulso"></span>Contestamos el mismo día</span>
           </div>
         </div>
@@ -790,8 +907,14 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
                 <span class="color"><span class="punto" style="background:#1E1E1E"></span>Negro</span>
               </div>
             </div>
+          <div class="grupo">
+            <span class="grupo-tit">Talla</span>
+            <div class="tallas"><button type="button" class="talla" aria-pressed="false">ECH</button><button type="button" class="talla" aria-pressed="false">CH</button><button type="button" class="talla" aria-pressed="false">M</button><button type="button" class="talla" aria-pressed="false">G</button><button type="button" class="talla" aria-pressed="false">EG</button><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20la%20Sudadera%20Negra%20de%20Pana%20con%20Capucha.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
+          </div>
+          <p class="aviso-pieza" aria-live="polite"></p>
           <div class="pieza-cta">
-            <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Sudadera%20Negra%20de%20Pana%20con%20Capucha%20de%20%241%2C100.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
+            <button type="button" class="btn" data-agregar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Agregar al carrito</span></button>
+            <a class="btn btn-ghost" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20la%20Sudadera%20Negra%20de%20Pana%20con%20Capucha%20de%20%241%2C100.%20%C2%BFQu%C3%A9%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
             <span class="responde"><span class="pulso"></span>Contestamos el mismo día</span>
           </div>
         </div>
@@ -820,8 +943,14 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
                 data-alt="Polo de punto texturizado de La Pertcha en beige, acanalado, con cuello polo abierto."><span class="punto" style="background:#BAB3A8"></span>Beige</button>
               </div>
             </div>
+          <div class="grupo">
+            <span class="grupo-tit">Talla</span>
+            <div class="tallas"><button type="button" class="talla" aria-pressed="false">ECH</button><button type="button" class="talla" aria-pressed="false">CH</button><button type="button" class="talla" aria-pressed="false">M</button><button type="button" class="talla" aria-pressed="false">G</button><button type="button" class="talla" aria-pressed="false">EG</button><a class="ayuda-talla" href="https://wa.me/525560067266?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20talla%20soy%20en%20el%20Polo%20de%20Punto%20Texturizado.%20%C2%BFMe%20ayudas%3F" target="_blank" rel="noopener">¿Cuál es mi talla?</a></div>
+          </div>
+          <p class="aviso-pieza" aria-live="polite"></p>
           <div class="pieza-cta">
-            <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20el%20Polo%20de%20Punto%20Texturizado%20de%20%24800.%20%C2%BFQu%C3%A9%20colores%20y%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
+            <button type="button" class="btn" data-agregar><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Agregar al carrito</span></button>
+            <a class="btn btn-ghost" href="https://wa.me/525560067266?text=Hola%2C%20quiero%20el%20Polo%20de%20Punto%20Texturizado%20de%20%24800.%20%C2%BFQu%C3%A9%20colores%20y%20tallas%20tienes%3F" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
             <span class="responde"><span class="pulso"></span>Contestamos el mismo día</span>
           </div>
         </div>
@@ -942,8 +1071,29 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
   </div>
 </footer>
 
+
+<div class="carrito-velo" data-cerrar-carrito></div>
+<aside class="carrito" id="carrito" role="dialog" aria-modal="true" aria-labelledby="carrito-tit" aria-hidden="true">
+  <div class="carrito-cab">
+    <h2 id="carrito-tit">Tu pedido</h2>
+    <button type="button" class="cerrar" data-cerrar-carrito aria-label="Cerrar carrito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <ul class="carrito-lista" id="carrito-lista"></ul>
+  <div class="carrito-vacio" id="carrito-vacio" hidden>
+    <p>Tu carrito está vacío. Elige una prenda, tu talla y agrégala.</p>
+    <button type="button" class="btn btn-ghost" data-cerrar-carrito><span class="txt">Ver la línea</span></button>
+  </div>
+  <div class="carrito-pie" id="carrito-pie">
+    <div class="carrito-total"><span>Total</span><b id="carrito-total">$0</b></div>
+    <a class="btn" id="carrito-enviar" href="https://wa.me/525560067266" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Enviar pedido por WhatsApp</span></a>
+    <small>Te confirmamos existencias y forma de entrega por WhatsApp.</small>
+  </div>
+</aside>
+<div class="aviso-carrito" id="aviso-carrito" role="status" aria-live="polite"><span id="aviso-carrito-txt"></span><button type="button" data-abrir-carrito>Ver carrito</button></div>
+
 <div class="movil-cta">
-  <a class="btn" href="https://wa.me/525560067266?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20La%20Pertcha%20y%20quiero%20preguntar%20por%20una%20prenda." target="_blank" rel="noopener">
+  <button type="button" class="btn" data-movil-carrito data-abrir-carrito hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><span class="txt">Ver pedido</span></button>
+  <a class="btn" data-movil-wa href="https://wa.me/525560067266?text=Hola%2C%20vi%20la%20p%C3%A1gina%20de%20La%20Pertcha%20y%20quiero%20preguntar%20por%20una%20prenda." target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.25-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.83 2.41a8.19 8.19 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24z"/></svg><span class="txt">Pedir por WhatsApp</span></a>
 </div>
 
@@ -1047,5 +1197,162 @@ footer{border-top:1px solid var(--hairline);padding-top:var(--s5);padding-bottom
   }, 4000);
 })();
 </script>
+<script>
+/* Carrito: eliges talla (y color), agregas, y el pedido sale armado a WhatsApp. */
+(function(){
+  var WA = '525560067266';
+  var CLAVE = 'pertcha-carrito';
+  var items = [];
+  try { items = JSON.parse(localStorage.getItem(CLAVE)) || []; } catch(e) { items = []; }
+  function guardar(){ try { localStorage.setItem(CLAVE, JSON.stringify(items)); } catch(e) {} }
+  function pesos(n){ return '$' + n.toLocaleString('es-MX'); }
+  function aNumero(t){ return parseInt(String(t).replace(/[^\d]/g,''), 10) || 0; }
+
+  var carrito = document.getElementById('carrito');
+  var velo = document.querySelector('.carrito-velo');
+  var lista = document.getElementById('carrito-lista');
+  var vacio = document.getElementById('carrito-vacio');
+  var pie = document.getElementById('carrito-pie');
+  var totalEl = document.getElementById('carrito-total');
+  var enviar = document.getElementById('carrito-enviar');
+  var aviso = document.getElementById('aviso-carrito');
+  var avisoTxt = document.getElementById('aviso-carrito-txt');
+  var bolsas = document.querySelectorAll('.bolsa');
+  var movilWa = document.querySelector('.movil-cta [data-movil-wa]');
+  var movilCarrito = document.querySelector('.movil-cta [data-movil-carrito]');
+  var ultimoFoco = null, timerAviso = null;
+
+  function datosPieza(art){
+    var colores = art.querySelectorAll('.colores .color');
+    var reales = Array.prototype.filter.call(colores, function(c){ return c.textContent.trim() !== 'Los tres'; });
+    var elegido = art.querySelector('.colores button.color[aria-pressed="true"]');
+    var color = '';
+    if(reales.length === 1) color = reales[0].textContent.trim();
+    else if(elegido && elegido.textContent.trim() !== 'Los tres') color = elegido.textContent.trim();
+    var talla = art.querySelector('button.talla[aria-pressed="true"]');
+    var foto = art.querySelector('.pieza-foto img');
+    return {
+      nombre: art.querySelector('h3').textContent.trim(),
+      precio: aNumero(art.querySelector('.precio').firstChild.textContent),
+      color: color, variosColores: reales.length > 1,
+      talla: talla ? talla.textContent.trim() : '',
+      foto: foto ? foto.currentSrc || foto.src : ''
+    };
+  }
+
+  function contar(){ return items.reduce(function(s,i){ return s + i.cant; }, 0); }
+  function total(){ return items.reduce(function(s,i){ return s + i.cant * i.precio; }, 0); }
+  function detalle(i){ return (i.variosColores && i.color ? i.color + ', ' : '') + 'talla ' + i.talla; }
+
+  function mensaje(){
+    var l = ['Hola, quiero hacer este pedido:'];
+    items.forEach(function(i){
+      l.push('• ' + (i.cant > 1 ? i.cant + ' × ' : '') + i.nombre + ' — ' + detalle(i) + ' — ' + pesos(i.cant * i.precio));
+    });
+    l.push('Total: ' + pesos(total()));
+    return l.join('\n');
+  }
+
+  function pintar(){
+    var n = contar();
+    bolsas.forEach(function(b){
+      var c = b.querySelector('.cuenta');
+      c.textContent = n; c.hidden = n === 0;
+      b.setAttribute('aria-label', n ? 'Carrito, ' + n + (n === 1 ? ' prenda' : ' prendas') : 'Carrito vacío');
+    });
+    if(movilCarrito && movilWa){
+      movilCarrito.hidden = n === 0; movilWa.hidden = n > 0;
+      var t = movilCarrito.querySelector('.txt');
+      if(t) t.textContent = 'Ver pedido (' + n + ') · ' + pesos(total());
+    }
+    lista.innerHTML = '';
+    vacio.hidden = n > 0; lista.hidden = n === 0; pie.hidden = n === 0;
+    items.forEach(function(i, k){
+      var li = document.createElement('li'); li.className = 'renglon';
+      var img = document.createElement('img'); img.alt = ''; if(i.foto) img.src = i.foto;
+      var mid = document.createElement('div');
+      var h = document.createElement('h3'); h.textContent = i.nombre;
+      var d = document.createElement('p'); d.className = 'det'; d.textContent = detalle(i);
+      var cant = document.createElement('div'); cant.className = 'cant';
+      var menos = document.createElement('button'); menos.type = 'button'; menos.textContent = '−';
+      menos.setAttribute('aria-label', 'Quitar una');
+      var num = document.createElement('span'); num.textContent = i.cant;
+      var mas = document.createElement('button'); mas.type = 'button'; mas.textContent = '+';
+      mas.setAttribute('aria-label', 'Agregar una');
+      menos.onclick = function(){ if(i.cant > 1){ i.cant--; } else { items.splice(k,1); } guardar(); pintar(); };
+      mas.onclick = function(){ i.cant++; guardar(); pintar(); };
+      cant.append(menos, num, mas); mid.append(h, d, cant);
+      var der = document.createElement('div'); der.className = 'der';
+      var monto = document.createElement('span'); monto.className = 'monto'; monto.textContent = pesos(i.cant * i.precio);
+      var quitar = document.createElement('button'); quitar.type = 'button'; quitar.className = 'quitar'; quitar.textContent = 'Quitar';
+      quitar.onclick = function(){ items.splice(k,1); guardar(); pintar(); };
+      der.append(monto, quitar);
+      li.append(img, mid, der); lista.appendChild(li);
+    });
+    totalEl.textContent = pesos(total());
+    enviar.href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent(mensaje());
+  }
+
+  function abrir(){
+    ultimoFoco = document.activeElement;
+    carrito.classList.add('abierto'); velo.classList.add('abierto');
+    carrito.setAttribute('aria-hidden','false');
+    aviso.classList.remove('visible');
+    document.documentElement.style.overflow = 'hidden';
+    setTimeout(function(){ var c = carrito.querySelector('.cerrar'); if(c) c.focus(); }, 60);
+  }
+  function cerrar(){
+    carrito.classList.remove('abierto'); velo.classList.remove('abierto');
+    carrito.setAttribute('aria-hidden','true');
+    document.documentElement.style.overflow = '';
+    if(ultimoFoco && ultimoFoco.focus) ultimoFoco.focus();
+  }
+  document.querySelectorAll('[data-abrir-carrito]').forEach(function(b){ b.addEventListener('click', abrir); });
+  document.querySelectorAll('[data-cerrar-carrito]').forEach(function(b){ b.addEventListener('click', cerrar); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && carrito.classList.contains('abierto')) cerrar(); });
+
+  /* tallas: una sola elegida por prenda */
+  document.querySelectorAll('.tallas').forEach(function(g){
+    var bs = g.querySelectorAll('button.talla');
+    bs.forEach(function(b){
+      b.addEventListener('click', function(){
+        bs.forEach(function(o){ o.setAttribute('aria-pressed', o === b ? 'true' : 'false'); });
+        var art = g.closest('.pieza'); var gr = g.closest('.grupo');
+        if(gr) gr.classList.remove('falta');
+        var av = art && art.querySelector('.aviso-pieza'); if(av) av.textContent = '';
+      });
+    });
+  });
+  document.querySelectorAll('.colores button.color').forEach(function(b){
+    b.addEventListener('click', function(){
+      var art = b.closest('.pieza'); var gr = b.closest('.grupo');
+      if(gr) gr.classList.remove('falta');
+      var av = art && art.querySelector('.aviso-pieza'); if(av) av.textContent = '';
+    });
+  });
+
+  document.querySelectorAll('[data-agregar]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var art = btn.closest('.pieza'); var p = datosPieza(art);
+      var av = art.querySelector('.aviso-pieza');
+      var falta = [];
+      if(p.variosColores && !p.color){ falta.push('color'); art.querySelector('.colores').closest('.grupo').classList.add('falta'); }
+      if(!p.talla){ falta.push('talla'); var gt = art.querySelector('.tallas'); if(gt) gt.closest('.grupo').classList.add('falta'); }
+      if(falta.length){ av.textContent = 'Elige tu ' + falta.join(' y ') + ' para agregarla.'; return; }
+      var igual = items.filter(function(i){ return i.nombre === p.nombre && i.talla === p.talla && i.color === p.color; })[0];
+      if(igual) igual.cant++;
+      else items.push({nombre:p.nombre, precio:p.precio, color:p.color, variosColores:p.variosColores, talla:p.talla, foto:p.foto, cant:1});
+      guardar(); pintar();
+      bolsas.forEach(function(b){ b.classList.remove('salta'); void b.offsetWidth; b.classList.add('salta'); });
+      avisoTxt.textContent = 'Agregaste: ' + p.nombre + ' · ' + (p.variosColores ? p.color + ' · ' : '') + p.talla;
+      aviso.classList.add('visible');
+      clearTimeout(timerAviso); timerAviso = setTimeout(function(){ aviso.classList.remove('visible'); }, 4200);
+    });
+  });
+
+  pintar();
+})();
+</script>
+
 
 </body></html>
