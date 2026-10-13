@@ -543,6 +543,7 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
 
 
 
+
 /* ============ calculadora de talla ============ */
 .guia-velo{position:fixed;inset:0;z-index:80;background:rgba(18,16,16,.46);opacity:0;pointer-events:none;transition:opacity .25s ease}
 .guia-velo.abierto{opacity:1;pointer-events:auto}
@@ -1484,7 +1485,7 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
 <script>
 /* Calculadora de talla: estima el pecho con estatura, peso y edad, y lo cruza con la tabla de la prenda. */
 (function(){
-  var TABLAS = {"Chamarra Bomber Gamuza Beige": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Chamarra Híbrida Gris Sport": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Chamarra Híbrida Gris Humo": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Sudadera Negra de Pana con Capucha": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Polo de Punto Texturizado": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Sudadera Texturizada": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}};
+  var TABLAS = {"Chamarra Bomber Gamuza Beige": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Chamarra Híbrida Gris Sport": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Chamarra Híbrida Gris Humo": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Sudadera Negra de Pana con Capucha": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Polo de Punto Texturizado": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Sudadera Texturizada": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}, "Chamarra Gamuza Café": {"ECH": [84.0, 89.0], "CH": [91.5, 96.5], "M": [99.0, 104.0], "G": [106.5, 112.0], "EG": [114.5, 119.5]}};
   var guia = document.getElementById('guia'), velo = document.querySelector('.guia-velo');
   var form = document.getElementById('guia-form'), res = document.getElementById('guia-res');
   var alt = document.getElementById('g-alt'), peso = document.getElementById('g-peso'), edad = document.getElementById('g-edad');
@@ -1578,6 +1579,7 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
   });
 })();
 </script>
+
 
 
 
