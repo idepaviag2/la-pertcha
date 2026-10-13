@@ -534,6 +534,12 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
 .entrega input{accent-color:var(--ink);margin:2px 0 0;flex:none}
 .entrega small{display:block;font-size:11.5px;color:var(--ink-faint);margin-top:2px;text-align:left}
 
+
+.pasos-bazar{margin:var(--s5) 0 0;padding:var(--s3) var(--s3);border:1px solid var(--hairline);background:var(--surface);
+  font-family:"Archivo",sans-serif;font-size:14px;line-height:1.6;color:var(--ink-soft)}
+.pasos-bazar b{color:var(--ink);font-weight:600}
+.pasos-bazar[hidden]{display:none}
+
 /* ============ revelado ============ */
 .js-rise .rise{opacity:0;transform:translateY(22px);
   transition:opacity .85s cubic-bezier(.16,.84,.44,1),transform .85s cubic-bezier(.16,.84,.44,1)}
@@ -550,7 +556,7 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
 <a class="saltar" href="#linea">Saltar al catálogo</a>
 
 <div class="bazar" id="aviso-bazar" data-hasta="2026-10-19">
-  <span class="linea"><b>Bazar Hotbook Otoño</b><span class="sep">·</span>Parque La Mexicana</span><span class="sep fuera">·</span><span class="linea nw">16 al 18 de octubre, 10 am a 8 pm</span><span class="sep fuera">·</span><span class="linea"><a href="#linea">Aparta en línea y recógela ahí →</a></span>
+  <span class="linea"><b>Bazar Hotbook Otoño</b><span class="sep">·</span>Parque La Mexicana</span><span class="sep fuera">·</span><span class="linea nw">16 al 18 de octubre, 10 am a 8 pm</span><span class="sep fuera">·</span><span class="linea"><a href="#linea">Pide en línea y recógela ahí →</a></span>
 </div>
 <header class="bar">
   <a class="bar-brand" href="#top">
@@ -1058,20 +1064,21 @@ button.talla[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);
     <div class="pasos">
       <div class="paso rise">
         <span class="n">01</span>
-        <h3>Escribes</h3>
-        <p>Mándanos WhatsApp con la prenda, el color y tu talla. Si no sabes cuál eres, te decimos con dos medidas.</p>
+        <h3>Eliges</h3>
+        <p>Escoge la prenda, el color y tu talla, y agrégala al carrito. Si no sabes qué talla eres, pica “¿Cuál es mi talla?” y te ayudamos con dos medidas.</p>
       </div>
       <div class="paso rise">
         <span class="n">02</span>
-        <h3>Pagas</h3>
-        <p>Te confirmamos que hay tu talla y te pasamos los datos. Transferencia o depósito por el total — no manejamos apartado.</p>
+        <h3>Mandas tu pedido</h3>
+        <p>En el carrito pica “Enviar pedido por WhatsApp”. El mensaje ya va armado con tus prendas, tallas y total. Te confirmamos que hay tu talla el mismo día.</p>
       </div>
       <div class="paso rise">
         <span class="n">03</span>
-        <h3>Te llega</h3>
-        <p>Dentro de CDMX, uno o dos días. Fuera depende de tu zona y te lo decimos antes de que pagues.</p>
+        <h3>Pagas y te llega</h3>
+        <p>Transferencia o depósito por el total. Dentro de CDMX llega en uno o dos días; fuera depende de tu zona y te lo decimos antes de que pagues.</p>
       </div>
     </div>
+    <p class="pasos-bazar rise" data-hasta="2026-10-19"><b>Bazar Hotbook, 16 al 18 de octubre.</b> Pide en línea, paga por transferencia y recógela en el Parque La Mexicana sin hacer fila por tu talla.</p>
   </div>
 </section>
 
